@@ -9,8 +9,8 @@ const Navbar = () => {
       {/* Logo  */}
       <img src={assets.logo} alt="Logo" className="w-56 h-20" />
       {/* Navigation Links */}
-      <ul className="hidden sm:flex gap-5 text-sm text-gray-700 hidden">
-        <NavLink to="/home" className="flex flex-col items-center gap-1">
+      <ul className="sm:flex gap-5 text-sm text-gray-700 hidden">
+        <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>HOME</p>
           <hr className="w-3/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
@@ -69,7 +69,7 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Mobile Navigation Links */}
+      {/* Sidebar for small screen */}
       <div
         className={`absolute top-0 left-0 bottom-0 overflow-hidden  bg-white transition-all ${
           visible ? "w-full" : "w-0"
