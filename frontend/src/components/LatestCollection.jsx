@@ -1,13 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
-import ProductItem from "./ProductItem"; 
+import ProductItem from "./ProductItem";
 
 const LatestCollection = () => {
   const { products } = useContext(ShopContext);
   const [latestProducts, setLatestProducts] = useState([]);
 
-   {/* Initialize latestProducts with the first 10 products from the context */}
+  // Initialize latestProducts with the first 10 products from the context
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
   }, [products]);
@@ -17,7 +17,8 @@ const LatestCollection = () => {
       <div className="text-center py-8 text-3xl">
         <Title text1={"LATEST"} text2={"COLLECTION"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus, in?
+          Những sản phẩm thời trang mới nhất được cập nhật mỗi tuần tại Xuân
+          Hải.
         </p>
       </div>
 

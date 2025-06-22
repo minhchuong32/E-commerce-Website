@@ -1,32 +1,40 @@
 import React from "react";
 
-const NewlesterBox = () => {
-    function onSubmitHandler(e) {
-        e.preventDefault();
-    }
-    return (
-    <div className="text-center">
-      <p className="text-2xl font-medium text-gray-800">
-        Subcribe now & get 20% off
+const NewsletterBox = () => {
+  function onSubmitHandler(e) {
+    e.preventDefault();
+    // Bạn có thể thêm xử lý gửi email ở đây
+  }
+
+  return (
+    <div className="text-center my-16 px-4">
+      <p className="text-2xl font-semibold text-gray-800">
+        Đăng ký nhận tin & nhận ưu đãi 20%
       </p>
-      <p className="text-gray-400 mt-3">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, aperiam.
+      <p className="text-gray-500 mt-3">
+        Nhận thông tin khuyến mãi, bộ sưu tập mới và xu hướng thời trang từ Xuân
+        Hải.
       </p>
-      <form onSubmit={onSubmitHandler} className="w-full sm:w-1/2 flex items-center justify-center gap-3 mx-auto my-6 border pl-3">
+
+      <form
+        onSubmit={onSubmitHandler}
+        className="w-full sm:w-1/2 flex items-center justify-center gap-3 mx-auto my-6 border border-gray-300 rounded-lg pl-3"
+      >
         <input
-          className="w-full sm:flex-1 outline-none"
           type="email"
-          placeholder="Enter your email"
+          placeholder="Nhập email của bạn"
+          required
+          className="w-full sm:flex-1 outline-none py-3 text-sm"
         />
         <button
           type="submit"
-          className="bg-black text-white text-xs px-10 py-4"
+          className="hover:opacity-75 bg-black text-white text-xs px-6 py-3 rounded-r-lg"
         >
-          SUBSCRIBE
+          ĐĂNG KÝ
         </button>
       </form>
     </div>
   );
 };
 
-export default NewlesterBox;
+export default NewsletterBox;
