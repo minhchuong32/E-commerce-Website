@@ -7,7 +7,9 @@ const Navbar = () => {
   return (
     <div className="flex justify-between items-center py-5 font-mdedium">
       {/* Logo  */}
+      <Link to="/"> 
       <img src={assets.logo} alt="Logo" className="w-56 h-20" />
+      </Link>
       {/* Navigation Links */}
       <ul className="sm:flex gap-5 text-sm text-gray-700 hidden">
         <NavLink to="/" className="flex flex-col items-center gap-1">
