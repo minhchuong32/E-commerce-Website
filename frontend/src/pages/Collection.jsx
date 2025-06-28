@@ -9,6 +9,7 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
+  const [sortType, setSortType] = useState("relevant");
 
   // Toggle the category based on the checkbox value
   const toggleCategory = (e) => {
@@ -47,22 +48,28 @@ const Collection = () => {
     setFilterProducts(productsCopy);
   };
 
+  const sortProducts = () => {
+    let filterProductCopys = filterProducts.slice(); // Create a copy of the filtered products array
+
+    switch (sortType) {
+      case "low-high":
+        setFilterProducts(filterProductCopys.sort((a, b) => a.price - b.price)); // a > b
+        break;
+      case "high-low":
+        setFilterProducts(filterProductCopys.sort((a, b) => b.price - a.price)); // a < b
+        break;
+      default:
+      applyFilter(); // If no sort type is selected, apply the filter without sorting
+    }
+  };
+
+  useEffect(() => {
+    sortProducts(); // Sort products whenever sortType changes
+    }, [sortType]);
+
   useEffect(() => {
     applyFilter();
   }, [category, subCategory]);
-
-  //   useEffect(() => {
-  //     // Filter products based on selected categories and subcategories
-  //     const filteredProducts = products.filter((product) => {
-  //       // Check if the product's category is in the selected categories
-  //       const isCategoryMatch = category.length === 0 || category.includes(product.category);
-  //       // Check if the product's subcategory is in the selected subcategories
-  //       const isSubCategoryMatch = subCategory.length === 0 || subCategory.includes(product.subCategory);
-  //       return isCategoryMatch && isSubCategoryMatch;
-  //     });
-  //     // Update the filterProducts state with the filtered products
-  //     setFilterProducts(filteredProducts);
-  //   }, [category, subCategory, products]);
 
   useEffect(() => {
     // Initialize filterProducts with all products
@@ -164,10 +171,10 @@ const Collection = () => {
       <div className="flex-1">
         <div className="flex justify-between text-base sm:text-2xl mb-4">
           <Title text1={"All"} text2={"COLLECTIONS"} />
-          <select className="border-2 border-gray-400 text-sm px-2">
+          <select onChange={(e) => setSortType(e.target.value)} className="border-2 border-gray-400 text-sm px-2">
             <option value="relevant">Sort by: Relevant</option>
-            <option value="low-to-high">Sort by: Price (Low to High)</option>
-            <option value="high-to-low">Sort by: Price (High to Low)</option>
+            <option value="low-high">Sort by: Price (Low to High)</option>
+            <option value="high-low">Sort by: Price (High to Low)</option>
           </select>
         </div>
 
