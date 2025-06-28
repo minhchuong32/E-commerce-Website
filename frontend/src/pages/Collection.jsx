@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(true);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -31,6 +31,12 @@ const Collection = () => {
   const applyFilter = () => {
     let productsCopy = products.slice();
 
+    //Nếu hiện thanh search và có từ khóa tìm kiếm thì lọc sản phẩm theo từ khóa
+    if (showSearch && search) {
+      productsCopy = productsCopy.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
     if (category.length > 0) {
       productsCopy = productsCopy.filter((product) =>
         category.includes(product.category)
@@ -67,7 +73,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory]);
+  }, [category, subCategory, search, showSearch]);
 
   useEffect(() => {
     setFilterProducts(products);
@@ -98,25 +104,16 @@ const Collection = () => {
           <p className="mb-3 text-sm font-medium">DANH MỤC</p>
           <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
             <p className="flex gap-2">
-              <input
-                type="checkbox"
-                value="Men"
-                onChange={toggleCategory}
-              /> Nam
+              <input type="checkbox" value="Men" onChange={toggleCategory} />{" "}
+              Nam
             </p>
             <p className="flex gap-2">
-              <input
-                type="checkbox"
-                value="Women"
-                onChange={toggleCategory}
-              /> Nữ
+              <input type="checkbox" value="Women" onChange={toggleCategory} />{" "}
+              Nữ
             </p>
             <p className="flex gap-2">
-              <input
-                type="checkbox"
-                value="Kids"
-                onChange={toggleCategory}
-              /> Trẻ em
+              <input type="checkbox" value="Kids" onChange={toggleCategory} />{" "}
+              Trẻ em
             </p>
           </div>
         </div>
@@ -134,21 +131,24 @@ const Collection = () => {
                 type="checkbox"
                 value="Topwear"
                 onChange={toggleSubCategory}
-              /> Áo
+              />{" "}
+              Áo
             </p>
             <p className="flex gap-2">
               <input
                 type="checkbox"
                 value="Bottomwear"
                 onChange={toggleSubCategory}
-              /> Quần
+              />{" "}
+              Quần
             </p>
             <p className="flex gap-2">
               <input
                 type="checkbox"
                 value="Winterwear"
                 onChange={toggleSubCategory}
-              /> Đồ mùa đông
+              />{" "}
+              Đồ mùa đông
             </p>
           </div>
         </div>
