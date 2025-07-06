@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
 import { assets } from "../assets/assets";
+import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
   // Giỏ hàng hiện tại
-  const { products, currency, cartItems, updateQuantity } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity, navigate } = useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
 
@@ -77,6 +78,15 @@ const Cart = () => {
             </div>
           );
         })}
+      </div>
+
+      <div className="flex justify-end my-20">
+        <div className="w-full sm:w-[450px]">
+          <CartTotal />
+          <div className="w-full text-end">
+            <button onClick={() => navigate('/place-order')} className="bg-black text-white py-2 px-4 rounded"> PROCESS CHECKOUT </button>
+          </div>
+        </div>
       </div>
     </div>
   );
