@@ -8,21 +8,22 @@ const BestSeller = () => {
   const [bestSellers, setBestSellers] = useState([]);
 
   useEffect(() => {
-    // Filter products to find bestsellers
+    // Lọc các sản phẩm bán chạy
     const bestProduct = products.filter((item) => item.bestseller === true);
-    setBestSellers(bestProduct.slice(0, 5)); // Get the first 5 bestsellers
-  }, []);
+    setBestSellers(bestProduct.slice(0, 5)); // Lấy 5 sản phẩm bán chạy đầu tiên
+  }, [products]);
+
   return (
     <div className="my-10">
-      {/* Best Sellers Title */}
+      {/* Tiêu đề Bán Chạy Nhất */}
       <div className="text-center text-3xl py-8">
-        <Title text1={"BEST"} text2={"SELLERS"} />
+        <Title text1={"SẢN PHẨM"} text2={"BÁN CHẠY"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, aut!
+          Những sản phẩm được khách hàng tin dùng và lựa chọn nhiều nhất tại cửa hàng của chúng tôi.
         </p>
       </div>
 
-      {/* Best Sellers Products */}
+      {/* Danh sách sản phẩm bán chạy */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 gap-y-6">
         {bestSellers.map((item, index) => {
           return (

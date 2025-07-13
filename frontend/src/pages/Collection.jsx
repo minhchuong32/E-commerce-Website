@@ -170,13 +170,13 @@ const Collection = () => {
 
         {/* Hiển thị sản phẩm */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
-          {filterProducts.map((product) => (
+          {filterProducts.map((item, index) => (
             <ProductItem
-              key={product.id}
-              name={product.name}
-              price={product.price}
-              image={product.image}
-              id={product.id}
+              key={index}
+              id={item._id}
+              image={item.image}
+              name={item.name}
+              price={item.price}
             />
           ))}
         </div>

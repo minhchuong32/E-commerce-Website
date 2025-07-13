@@ -5,25 +5,23 @@ import { assets } from "../assets/assets";
 import CartTotal from "../components/CartTotal";
 
 const Cart = () => {
-  // Giỏ hàng hiện tại
+  // Lấy thông tin từ context
   const { products, currency, cartItems, updateQuantity, navigate } = useContext(ShopContext);
 
+  // Dữ liệu giỏ hàng hiển thị
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
     const tempData = [];
     for (const items in cartItems) {
       for (const size in cartItems[items]) {
-        // Nếu không tìm thấy sản phẩm, bỏ qua
-        if (cartItems[items][size] <= 0) continue;
+        if (cartItems[items][size] <= 0) continue; // Bỏ qua nếu số lượng = 0
 
-        if (cartItems[items][size] > 0) {
-          tempData.push({
-            _id: items,
-            size: size,
-            quantity: cartItems[items][size],
-          });
-        }
+        tempData.push({
+          _id: items,
+          size: size,
+          quantity: cartItems[items][size],
+        });
       }
     }
     setCartData(tempData);
@@ -32,7 +30,7 @@ const Cart = () => {
   return (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       <div className="text-2xl mb-3">
-        <Title text1={"YOUR"} text2={"CART"} />
+        <Title text1={"GIỎ"} text2={"HÀNG"} />
       </div>
 
       <div>
@@ -41,6 +39,7 @@ const Cart = () => {
             (product) => product._id === item._id
           );
           if (!productData) return null; // Nếu không tìm thấy sản phẩm, bỏ qua
+
           return (
             <div
               key={index}
@@ -50,7 +49,7 @@ const Cart = () => {
                 <img
                   className="w-16 sm:w-20"
                   src={productData.image[0]}
-                  alt=""
+                  alt="Sản phẩm"
                 />
                 <div>
                   <p className="text-xs sm:text-lg font-medium">
@@ -58,23 +57,32 @@ const Cart = () => {
                   </p>
                   <div className="flex items-center gap-5 mt-2">
                     <p>
-                      {" "}
                       {currency}
-                      {productData.price}  
+                      {productData.price}
                     </p>
                     <p className="px-2 sm:px-3 sm:py-1 border bg-slate-50">
-                      {item.size}
+                      Size: {item.size}
                     </p>
                   </div>
                 </div>
               </div>
-              <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantity(item._id, item.size, Number(e.target.value))}
+              <input
+                onChange={(e) =>
+                  e.target.value === '' || e.target.value === '0'
+                    ? null
+                    : updateQuantity(item._id, item.size, Number(e.target.value))
+                }
                 type="number"
                 className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
                 min={1}
                 defaultValue={item.quantity}
               />
-              <img onClick={() => updateQuantity(item._id, item.size, 0)} className="w-4 mr-4 cursor-pointer sm:w-5" src={assets.bin_icon} alt="" />
+              <img
+                onClick={() => updateQuantity(item._id, item.size, 0)}
+                className="w-4 mr-4 cursor-pointer sm:w-5"
+                src={assets.bin_icon}
+                alt="Xóa sản phẩm"
+              />
             </div>
           );
         })}
@@ -84,7 +92,12 @@ const Cart = () => {
         <div className="w-full sm:w-[450px]">
           <CartTotal />
           <div className="w-full text-end">
-            <button onClick={() => navigate('/place-order')} className="bg-black text-white py-2 px-4 rounded"> PROCESS CHECKOUT </button>
+            <button
+              onClick={() => navigate('/place-order')}
+              className="mt-10 bg-black text-white py-2 px-4 rounded"
+            >
+              TIẾN HÀNH ĐẶT HÀNG
+            </button>
           </div>
         </div>
       </div>
