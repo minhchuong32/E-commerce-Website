@@ -98,6 +98,30 @@ const registerUser = async (req, res) => {
 };
 
 // Route for admin login
-const adminLogin = async (req, res) => {};
+const adminLogin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check if admin credentials match
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            // Create token for admin
+            const token = jwt.sign( email + password , process.env.JWT_SECRET);
+            res.json({
+                success: true,
+                token,
+                message: 'Admin logged in successfully'
+            });
+        }
+
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
+    }
+};
 
 export { loginUser, registerUser, adminLogin };
