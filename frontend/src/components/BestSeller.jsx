@@ -9,8 +9,8 @@ const BestSeller = () => {
 
   useEffect(() => {
     // Lọc các sản phẩm bán chạy
-    const bestProduct = products.filter((item) => item.bestseller === true);
-    setBestSellers(bestProduct.slice(0, 5)); // Lấy 5 sản phẩm bán chạy đầu tiên
+    const bestProduct = products.filter((item) => item.bestSeller);
+    setBestSellers(bestProduct.slice(0, 3)); // Lấy 5 sản phẩm bán chạy đầu tiên
   }, [products]);
 
   return (
@@ -30,7 +30,7 @@ const BestSeller = () => {
             <ProductItem
               key={index}
               id={item._id}
-              image={item.image}
+              images={item.images}
               name={item.name}
               price={item.price}
             />

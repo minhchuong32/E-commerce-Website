@@ -15,7 +15,7 @@ const Product = () => {
   const fetchProductData = () => {
     products.map((item) => {
       if (item._id === productId) {
-        setImage(item.image[0]);
+        setImage(item.images[0]);
         setProductData(item);
         return null;
       }
@@ -33,7 +33,7 @@ const Product = () => {
         {/* Hình ảnh sản phẩm */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
-            {productData.image.map((img, index) => (
+            {productData.images.map((img, index) => (
               <img
                 onClick={() => setImage(img)}
                 key={index}
