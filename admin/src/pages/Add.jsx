@@ -69,7 +69,7 @@ const Add = ({ token }) => {
           {[image1, image2, image3, image4].map((img, i) => (
             <label htmlFor={`image${i + 1}`} key={i}>
               <img
-                className="w-20"
+                className="w-20 cursor-pointer"
                 src={!img ? assets.upload_area : URL.createObjectURL(img)}
                 alt=""
               />
@@ -186,7 +186,7 @@ const Add = ({ token }) => {
 
       <button
         type="submit"
-        className="bg-black text-white px-5 py-2 sm:px-7 sm:py-2 rounded-full text-xs sm:text-sm hover:bg-gray-700 transition"
+        className="bg-black cursor-pointer text-white px-5 py-2 sm:px-7 sm:py-2 text-xs sm:text-sm hover:bg-gray-700 transition"
       >
         THÊM
       </button>
