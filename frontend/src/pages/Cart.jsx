@@ -12,6 +12,7 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
+    if(products.lenght === 0) return; // Nếu không có sản phẩm, không làm gì cả
     const tempData = [];
     for (const items in cartItems) {
       for (const size in cartItems[items]) {

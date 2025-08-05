@@ -39,6 +39,22 @@ const ShopContextProvider = (props) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/add",
+          {
+            itemId,
+            size,
+          },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error("Lỗi khi thêm sản phẩm vào giỏ hàng: " + error.message);
+      }
+    }
   };
 
   // Function to get the total count of items in the cart
@@ -61,6 +77,22 @@ const ShopContextProvider = (props) => {
     let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/api/cart/update",
+          {
+            itemId,
+            size,
+            quantity,
+          },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error("Lỗi khi cập nhật giỏ hàng: " + error.message);
+      }
+    }
   };
 
   const getCartAmount = () => {
@@ -82,6 +114,23 @@ const ShopContextProvider = (props) => {
     }
     return totalAmount;
   };
+
+  const getUserCart = async () => {
+    try {
+        const response = await axios.post(
+          backendUrl + "/api/cart/get",
+          {},
+          { headers: { token } }
+        );
+
+        if(response.data.success) {
+            setCartItems(response.data.cartData);
+        }
+    } catch (error) {
+        console.error("Error fetching user cart:", error);
+        toast.error("Lỗi khi lấy dữ liệu giỏ hàng: " + error.message);
+    }
+  }
 
   useEffect(() => {
     console.log(cartItems);
@@ -111,10 +160,10 @@ const ShopContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    if(!token && localStorage.getItem("token")) {
+    if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
     }
-  }, [])
+  }, []);
 
   const value = {
     products,
