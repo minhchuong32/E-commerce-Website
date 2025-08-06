@@ -132,19 +132,10 @@ const ShopContextProvider = (props) => {
     }
   }
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
-
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
-
   const getProductsData = async () => {
     try {
       const response = await axios.get(backendUrl + "/api/product/list");
       if (response.data.success) {
-        console.log(response.data.products);
         setProducts(response.data.products);
       } else {
         toast.error("Failed to fetch products: " + response.data.message);
@@ -162,6 +153,7 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
+      getUserCart(localStorage.getItem("token"));
     }
   }, []);
 
@@ -175,6 +167,7 @@ const ShopContextProvider = (props) => {
     setShowSearch,
     cartItems,
     addToCart,
+    setCartItems,
     getCartCount,
     updateQuantity,
     getCartAmount,
