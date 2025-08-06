@@ -15,7 +15,7 @@ const LatestCollection = () => {
   return (
     <div className="my-10">
       <div className="text-center py-8 text-3xl">
-        <Title text1={"LATEST"} text2={"COLLECTION"} />
+        <Title text1={"BỘ SƯU TẬP"} text2={"MỚI NHẤT"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600">
           Những sản phẩm thời trang mới nhất được cập nhật mỗi tuần tại Xuân
           Hải.

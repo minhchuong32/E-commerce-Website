@@ -12,7 +12,7 @@ const placeOrder = async (req, res) => {
       items,
       amount,
       address,
-      paymentMethod, // ✅ lấy từ client
+      paymentMethod, 
       payment: false,
       date: Date.now(),
     };
@@ -39,12 +39,24 @@ const placeOrderStripe = async (req, res) => {};
 
 // all orders data for admin panel
 const placeOrderRazorpay = async (req, res) => {};
-
+    
 // user order data for frontend
 const allOrders = async (req, res) => {};
 
 // user order data for frontend
-const userOrders = async (req, res) => {};
+const userOrders = async (req, res) => {
+    try {
+        const { userId } = req.body
+        const orders = await orderModel.find({ userId })
+        res.status(200).json({
+            success: true,
+            orders,
+        });
+    } catch (error) {
+        console.error("Error fetching user orders:", error);
+        res.status(500).json({ message: "Internal server error: " + error.message });
+    }
+};
 
 // updare order status for admin panel
 const updateStatus = async (req, res) => {};
