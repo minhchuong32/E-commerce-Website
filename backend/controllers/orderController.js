@@ -41,7 +41,16 @@ const placeOrderStripe = async (req, res) => {};
 const placeOrderRazorpay = async (req, res) => {};
     
 // user order data for frontend
-const allOrders = async (req, res) => {};
+const allOrders = async (req, res) => {
+    try {
+        const orders = await orderModel.find({})
+        res.json({success: true, orders});
+        
+    } catch (error) {
+        console.error("Error fetching all orders:", error);
+        res.status(500).json({ message: "Internal server error: " + error.message });
+    }
+};
 
 // user order data for frontend
 const userOrders = async (req, res) => {
