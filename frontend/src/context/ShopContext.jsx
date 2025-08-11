@@ -117,20 +117,20 @@ const ShopContextProvider = (props) => {
 
   const getUserCart = async () => {
     try {
-        const response = await axios.post(
-          backendUrl + "/api/cart/get",
-          {},
-          { headers: { token } }
-        );
+      const response = await axios.post(
+        backendUrl + "/api/cart/get",
+        {},
+        { headers: { token } }
+      );
 
-        if(response.data.success) {
-            setCartItems(response.data.cartData);
-        }
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
+      }
     } catch (error) {
-        console.error("Error fetching user cart:", error);
-        toast.error("Lỗi khi lấy dữ liệu giỏ hàng: " + error.message);
+      console.error("Error fetching user cart:", error);
+      toast.error("Lỗi khi lấy dữ liệu giỏ hàng: " + error.message);
     }
-  }
+  };
 
   const getProductsData = async () => {
     try {
@@ -156,6 +156,16 @@ const ShopContextProvider = (props) => {
       getUserCart(localStorage.getItem("token"));
     }
   }, []);
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cartItems");
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const value = {
     products,

@@ -66,7 +66,7 @@ const PlaceOrder = () => {
         address: formData,
         items: orderItem,
         amount: getCartAmount() + delivery_fee,
-        paymentMethod: method, 
+        paymentMethod: method,
       };
 
       switch (method) {
@@ -88,11 +88,47 @@ const PlaceOrder = () => {
             toast.error("Đặt hàng thất bại: " + response.data.message);
           }
           break;
-
+        case "stripe":
+          const responseStripe = await axios.post(
+            backendUrl + "/api/order/stripe",
+            orderData,
+            {
+              headers: { token },
+            }
+          );
+          if (responseStripe.data.success) {
+            const { session_url } = responseStripe.data;
+            window.location.replace(session_url);
+          } else {
+            toast.error("Đặt hàng thất bại: " + responseStripe.data.message);
+          }
+          break;
         default:
           break;
       }
     } catch (error) {}
+  };
+
+  // Verify Stripe
+  const verifyStripe = async (req, res) => {
+    I;
+    const { orderId, success, userId } = req.body;
+
+    try {
+      if (success === "true") {
+        await orderModel.findByIdAndUpdate(orderId, { payment: true });
+        await userModel.findByIdAndUpdate(userId, { cartData: {} });
+        res.json({ success: true });
+      } else {
+        await orderModel.findByIdAndDelete(orderId);
+        res.json({ success: false });
+
+        3;
+      }
+    } catch (error) {
+      console.log(error);
+      res.json({ success: false, message: error.message });
+    }
   };
 
   return (
